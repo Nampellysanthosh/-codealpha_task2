@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Connect{% endblock %}
+
+{% block content %}
+<div class="app-shell">
+    <aside class="left-sidebar">
+        <a class="brand" href="/"><span class="brand-mark"><i data-lucide="orbit"></i></span><span>Connect</span></a>
+        <nav class="side-nav" aria-label="Primary navigation">
+            <a class="active" href="/home/"><i data-lucide="house"></i><span>Home</span></a>
+            <a href="/search/"><i data-lucide="search"></i><span>Explore</span></a>
+            <a href="/notifications/"><i data-lucide="bell"></i><span>Notifications</span></a>
+            <a href="/messages/"><i data-lucide="message-circle"></i><span>Messages</span></a>
+            <a href="/saved/"><i data-lucide="bookmark"></i><span>Saved</span></a>
+            {% if request.user.is_authenticated %}
+            <a href="/profiles/{{ request.user.username }}/"><i data-lucide="user-round"></i><span>Profile</span></a>
+            {% else %}
+            <a href="/login/"><i data-lucide="user-round"></i><span>Profile</span></a>
+            {% endif %}
+        </nav>
+        <button class="button button-primary create-post-button" type="button" data-focus-post><i data-lucide="plus"></i> Create post</button>
+        {% if request.user.is_authenticated %}
+        <a class="sidebar-profile" href="/profiles/{{ request.user.username }}/"><span class="sidebar-avatar">{{ request.user.username|slice:":2"|upper }}</span><span><strong>{{ request.user.profile.full_name|default:request.user.username }}</strong><small>@{{ request.user.username }}</small></span><i data-lucide="more-horizontal"></i></a>
+        {% else %}
+        <a class="sidebar-profile" href="/login/"><span class="sidebar-avatar">?</span><span><strong>Log in</strong><small>Connect account</small></span><i data-lucide="more-horizontal"></i></a>
+        {% endif %}
+    </aside>
+    <main class="feed">
+        <header class="feed-header"><div><span class="eyebrow">Good morning</span><h1>Home feed</h1></div><a class="icon-button" href="/notifications/" aria-label="Notifications"><i data-lucide="bell"></i></a></header>
+        <form class="composer composer-form" id="postForm">
+            {% csrf_token %}
+            <span class="composer-avatar">AM</span>
+            <input name="content" type="text" placeholder="What's on your mind?" aria-label="Post text" required>
+            <button type="submit" class="composer-action" aria-label="Publish post"><i data-lucide="send"></i></button>
+        </form>
+        <section id="feedPosts" class="dynamic-feed" aria-live="polite">
+            <section class="feed-loading"><span class="loading-spinner"></span><p>Loading your feed...</p></section>
+        </section>
+    </main>
+    <aside class="right-sidebar">
+        <form class="search-box" action="/search/" method="get"><i data-lucide="search"></i><input name="search" type="search" placeholder="Search Connect" aria-label="Search Connect"><button type="submit" class="search-submit" aria-label="Submit search"><i data-lucide="arrow-right"></i></button></form>
+        <section class="side-card">
+            <div class="card-heading"><h2>People to follow</h2><a href="/search/">See all</a></div>
+            <a class="suggestion" href="/search/"><span class="suggestion-avatar suggestion-one">?</span><div><strong>Discover people</strong><small>Find your community</small></div><i data-lucide="arrow-right"></i></a>
+        </section>
+        <section class="side-card trending-card">
+            <div class="card-heading"><h2>Trending</h2></div>
+            <a href="/search/"><small>Explore Connect</small><strong>Find new people</strong><span>Search profiles</span></a>
+            <a href="/search/"><small>Explore Connect</small><strong>Build your circle</strong><span>Follow creators</span></a>
+        </section>
+    </aside>
+</div>
+<nav class="mobile-nav" aria-label="Mobile navigation">
+    <a class="active" href="/home/" aria-label="Home"><i data-lucide="house"></i></a>
+    <a href="/search/" aria-label="Explore"><i data-lucide="search"></i></a>
+    <a class="mobile-create" href="#postForm" aria-label="Create post"><i data-lucide="plus"></i></a>
+    <a href="/notifications/" aria-label="Notifications"><i data-lucide="bell"></i></a>
+    {% if request.user.is_authenticated %}
+    <a href="/profiles/{{ request.user.username }}/" aria-label="Profile"><i data-lucide="user-round"></i></a>
+    {% else %}
+    <a href="/login/" aria-label="Profile"><i data-lucide="user-round"></i></a>
+    {% endif %}
+</nav>
+{% endblock %}

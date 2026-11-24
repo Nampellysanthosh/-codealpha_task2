@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Create account - Connect{% endblock %}
+
+{% block content %}
+<main class="auth-shell">
+    <section class="auth-panel auth-brand-panel">
+        <a class="brand auth-brand" href="/">
+            <span class="brand-mark"><i data-lucide="orbit"></i></span>
+            <span>Connect</span>
+        </a>
+        <div class="auth-quote">
+            <div class="quote-icon"><i data-lucide="sparkles"></i></div>
+            <blockquote>Your people are already here.</blockquote>
+            <p>Create a profile and start sharing.</p>
+        </div>
+    </section>
+    <section class="auth-panel auth-form-panel">
+        <form class="auth-form" id="registerForm" novalidate>
+            {% csrf_token %}
+            <div class="auth-heading">
+                <span class="eyebrow">Join Connect</span>
+                <h1>Create your account</h1>
+                <p>It only takes a minute.</p>
+            </div>
+            <div class="form-field">
+                <label for="fullName">Full name</label>
+                <div class="input-wrap"><i data-lucide="badge-user"></i><input id="fullName" name="full_name" type="text" autocomplete="name" placeholder="Alex Morgan" required></div>
+                <small class="field-error"></small>
+            </div>
+            <div class="form-field">
+                <label for="username">Username</label>
+                <div class="input-wrap"><i data-lucide="at-sign"></i><input id="username" name="username" type="text" autocomplete="username" placeholder="alexmorgan" required minlength="3"></div>
+                <small class="field-error"></small>
+            </div>
+            <div class="form-field">
+                <label for="email">Email</label>
+                <div class="input-wrap"><i data-lucide="mail"></i><input id="email" name="email" type="email" autocomplete="email" placeholder="alex@example.com" required></div>
+                <small class="field-error"></small>
+            </div>
+            <div class="form-field">
+                <label for="password">Password</label>
+                <div class="input-wrap"><i data-lucide="lock-keyhole"></i><input id="password" name="password" type="password" autocomplete="new-password" placeholder="Create a strong password" required minlength="8"><button type="button" class="password-toggle" aria-label="Show password"><i data-lucide="eye"></i></button></div>
+                <small class="field-error"></small>
+            </div>
+            <button class="button button-primary auth-submit" type="submit">Create account <i data-lucide="arrow-right"></i></button>
+            <p class="auth-switch">Already have an account? <a href="/login/">Login</a></p>
+        </form>
+    </section>
+</main>
+{% endblock %}

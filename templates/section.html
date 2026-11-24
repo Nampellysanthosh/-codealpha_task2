@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - Connect{% endblock %}
+
+{% block content %}
+<div class="app-shell">
+    <aside class="left-sidebar">
+        <a class="brand" href="/home/"><span class="brand-mark"><i data-lucide="orbit"></i></span><span>Connect</span></a>
+        <nav class="side-nav" aria-label="Primary navigation">
+            <a href="/home/"><i data-lucide="house"></i><span>Home</span></a>
+            <a href="/search/"><i data-lucide="search"></i><span>Explore</span></a>
+            <a class="{% if section == 'notifications' %}active{% endif %}" href="/notifications/"><i data-lucide="bell"></i><span>Notifications</span></a>
+            <a class="{% if section == 'messages' %}active{% endif %}" href="/messages/"><i data-lucide="message-circle"></i><span>Messages</span></a>
+            <a class="{% if section == 'saved' %}active{% endif %}" href="/saved/"><i data-lucide="bookmark"></i><span>Saved</span></a>
+            {% if request.user.is_authenticated %}
+            <a href="/profiles/{{ request.user.username }}/"><i data-lucide="user-round"></i><span>Profile</span></a>
+            {% else %}
+            <a href="/login/"><i data-lucide="user-round"></i><span>Profile</span></a>
+            {% endif %}
+        </nav>
+    </aside>
+    <main class="feed section-feed">
+        <header class="feed-header">
+            <div><span class="eyebrow">Your Connect space</span><h1>{{ title }}</h1></div>
+        </header>
+        <section class="feed-empty section-empty">
+            <span><i data-lucide="{{ icon }}"></i></span>
+            <h2>{{ title }}</h2>
+            <p>{{ description }}</p>
+            <a class="button button-primary" href="/home/">Back to home</a>
+        </section>
+    </main>
+</div>
+<nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="/home/" aria-label="Home"><i data-lucide="house"></i></a>
+    <a href="/search/" aria-label="Explore"><i data-lucide="search"></i></a>
+    <a class="{% if section == 'messages' %}active{% endif %}" href="/messages/" aria-label="Messages"><i data-lucide="message-circle"></i></a>
+    <a class="{% if section == 'notifications' %}active{% endif %}" href="/notifications/" aria-label="Notifications"><i data-lucide="bell"></i></a>
+    <a class="{% if section == 'saved' %}active{% endif %}" href="/saved/" aria-label="Saved"><i data-lucide="bookmark"></i></a>
+</nav>
+{% endblock %}

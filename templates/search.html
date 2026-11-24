@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Search users - Connect{% endblock %}
+
+{% block content %}
+<main class="search-page">
+    <header class="search-header">
+        <a class="brand" href="/home/"><span class="brand-mark"><i data-lucide="orbit"></i></span><span>Connect</span></a>
+        <a class="text-link" href="/home/">Back to feed</a>
+    </header>
+    <section class="search-hero">
+        <span class="eyebrow">Discover people</span>
+        <h1>Find your community</h1>
+        <form id="userSearchForm" class="user-search-form">
+            <i data-lucide="search"></i>
+            <input id="userSearchInput" name="search" type="search" value="{{ request.GET.search }}" placeholder="Search by username or name">
+            <button class="button button-primary" type="submit">Search</button>
+        </form>
+    </section>
+    <section id="searchResults" class="search-results"></section>
+</main>
+{% endblock %}
